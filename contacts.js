@@ -3,7 +3,7 @@ import * as fs from "node:fs/promises";
 import path from "node:path";
 import crypto from "node:crypto";
 
-const contactsPath = path.resolve("src", "db", "contacts.json");
+const contactsPath = path.resolve("db", "contacts.json");
 
 async function readContacts() {
   const data = await fs.readFile(contactsPath, { encoding: "utf-8" });
@@ -42,7 +42,7 @@ async function removeContact(contactId) {
   return removedContact;
 }
 
-async function addContact(name, email, phone) {
+async function addContact({ name, email, phone }) {
   const contacts = await readContacts();
   const newContact = { name, email, phone, id: crypto.randomUUID() };
   contacts.push(newContact);
